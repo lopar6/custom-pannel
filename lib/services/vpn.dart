@@ -33,7 +33,7 @@ class Vpn {
   Future<bool> _isConnected() async {
     var officeConnections = [
       for (var con in await _getConnections())
-        if (con['Session name'] == 'office.gurutechnologies.net') con
+        if (con['Session name'] == Env.VPN_SESSION_NAME) con
     ];
 
     for (var con in officeConnections) {
