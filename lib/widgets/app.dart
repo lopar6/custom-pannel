@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           appBarTheme:
               const AppBarTheme(color: Color.fromARGB(255, 60, 43, 63))),
       themeMode: ThemeMode.dark,
-      home: const HomePage(title: 'Custom Panel Home'),
+      home: const HomePage(),
     );
   }
 }
