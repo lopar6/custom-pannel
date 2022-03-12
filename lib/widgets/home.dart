@@ -1,3 +1,4 @@
+import 'package:custom_panel/services/vpn.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,34 +9,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _isConnected = false;
+  Vpn vpn = Vpn();
+  VpnConnectionStatus vpnConnectionStatus = VpnConnectionStatus.changing;
 
-  bool _checkVpnConnect() {
-    return false;
+  @override
+  void initState() {
+    super.initState();
+    _initAsync();
   }
 
-  void _vpnConnect() {
-    setState(() {});
-  }
-
-  void _vpnDisconnect() {
-    setState(() {});
+  Future<void> _initAsync() async {
+    try {
+      if (await vpn.isConnected()) {
+        vpnConnectionStatus = VpnConnectionStatus.connected;
+      } else {
+        vpnConnectionStatus = VpnConnectionStatus.disconnected;
+      }
+    } catch (e) {
+      print(e);
+    }
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Custom Panel"),
+        title: const Text("Custom Panel"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-                onPressed: _vpnConnect, child: const Text("Connect")),
+              child: const Text("Connect"),
+              onPressed: vpnConnectionStatus == VpnConnectionStatus.disconnected
+                  ? () async {
+                      vpnConnectionStatus = VpnConnectionStatus.changing;
+                      setState(() {});
+                      await vpn.connect();
+                      await vpn.isConnected(VpnCheckStrategy.waitForConnect);
+                      vpnConnectionStatus = VpnConnectionStatus.connected;
+                      setState(() {});
+                    }
+                  : null,
+            ),
             ElevatedButton(
-                onPressed: _vpnDisconnect, child: const Text("Disconnect")),
+              child: const Text("Disconnect"),
+              onPressed: vpnConnectionStatus == VpnConnectionStatus.connected
+                  ? () async {
+                      vpnConnectionStatus = VpnConnectionStatus.changing;
+                      setState(() {});
+                      await vpn.disconnect();
+                      await vpn.isConnected(VpnCheckStrategy.waitForDisconnect);
+                      vpnConnectionStatus = VpnConnectionStatus.disconnected;
+                      setState(() {});
+                    }
+                  : null,
+            ),
+            Text(vpnConnectionStatus.toString())
           ],
         ),
       ),
