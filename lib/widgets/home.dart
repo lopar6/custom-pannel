@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:custom_panel/services/vpn.dart';
 import 'package:flutter/material.dart';
+
+import 'workon.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,9 +42,9 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Custom Panel"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+        child: ListView(
+          shrinkWrap: true,
+          children: [
             ElevatedButton(
               child: const Text("Connect"),
               onPressed: vpnConnectionStatus == VpnConnectionStatus.disconnected
@@ -67,7 +71,8 @@ class _HomePageState extends State<HomePage> {
                     }
                   : null,
             ),
-            Text(vpnConnectionStatus.toString())
+            Text(vpnConnectionStatus.toString()),
+            Workon(),
           ],
         ),
       ),
