@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:custom_panel/services/vpn.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'workon.dart';
@@ -31,7 +30,9 @@ class _HomePageState extends State<HomePage> {
         vpnConnectionStatus = VpnConnectionStatus.disconnected;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     if (mounted) setState(() {});
   }
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(vpnConnectionStatus.toString()),
             ElevatedButton(
-              child: Text("Also Start Docker Containers?"),
+              child: const Text("Also Start Docker Containers?"),
               onPressed: () {
                 useDockerCompose = !useDockerCompose;
                 setState(() {});

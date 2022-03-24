@@ -1,24 +1,16 @@
-import 'dart:ffi';
-
 import 'package:custom_panel/data/projects.dart';
-import 'package:custom_panel/models/project.dart';
 import 'package:flutter/material.dart';
 
 class Workon extends StatelessWidget {
-  List<int> testList = [0, 1, 2];
-  late bool shouldUseDockerCompose;
+  final bool shouldUseDockerCompose;
+  const Workon(this.shouldUseDockerCompose, {Key? key}) : super(key: key);
 
-  Workon(this.shouldUseDockerCompose, {Key? key}) : super(key: key);
-
-//TODO figure out how to center
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(8),
-          children: _getProjectListTiles()),
-    );
+    return ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(8),
+        children: _getProjectListTiles());
   }
 
   List<ListTile> _getProjectListTiles() {
