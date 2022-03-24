@@ -47,42 +47,62 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            ElevatedButton(
-              child: const Text("Connect"),
-              onPressed: vpnConnectionStatus == VpnConnectionStatus.disconnected
-                  ? () async {
-                      vpnConnectionStatus = VpnConnectionStatus.changing;
-                      setState(() {});
-                      await vpn.connect();
-                      await vpn.isConnected(VpnCheckStrategy.waitForConnect);
-                      vpnConnectionStatus = VpnConnectionStatus.connected;
-                      setState(() {});
-                    }
-                  : null,
+            Row(
+              children: [
+                Text(vpnConnectionStatus.toString()),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      child: const Text("Connect"),
+                      onPressed: vpnConnectionStatus ==
+                              VpnConnectionStatus.disconnected
+                          ? () async {
+                              vpnConnectionStatus =
+                                  VpnConnectionStatus.changing;
+                              setState(() {});
+                              await vpn.connect();
+                              await vpn
+                                  .isConnected(VpnCheckStrategy.waitForConnect);
+                              vpnConnectionStatus =
+                                  VpnConnectionStatus.connected;
+                              setState(() {});
+                            }
+                          : null,
+                    ),
+                    ElevatedButton(
+                      child: const Text("Disconnect"),
+                      onPressed:
+                          vpnConnectionStatus == VpnConnectionStatus.connected
+                              ? () async {
+                                  vpnConnectionStatus =
+                                      VpnConnectionStatus.changing;
+                                  setState(() {});
+                                  await vpn.disconnect();
+                                  await vpn.isConnected(
+                                      VpnCheckStrategy.waitForDisconnect);
+                                  vpnConnectionStatus =
+                                      VpnConnectionStatus.disconnected;
+                                  setState(() {});
+                                }
+                              : null,
+                    ),
+                  ],
+                ),
+              ],
             ),
-            ElevatedButton(
-              child: const Text("Disconnect"),
-              onPressed: vpnConnectionStatus == VpnConnectionStatus.connected
-                  ? () async {
-                      vpnConnectionStatus = VpnConnectionStatus.changing;
-                      setState(() {});
-                      await vpn.disconnect();
-                      await vpn.isConnected(VpnCheckStrategy.waitForDisconnect);
-                      vpnConnectionStatus = VpnConnectionStatus.disconnected;
-                      setState(() {});
-                    }
-                  : null,
+            Row(
+              children: [
+                const Text("Also Start Docker Containers?"),
+                Checkbox(
+                  value: useDockerCompose,
+                  onChanged: (useDC) {
+                    useDockerCompose = !useDockerCompose;
+                    setState(() {});
+                  },
+                ),
+              ],
             ),
-            Text(vpnConnectionStatus.toString()),
-            ElevatedButton(
-              child: const Text("Also Start Docker Containers?"),
-              onPressed: () {
-                useDockerCompose = !useDockerCompose;
-                setState(() {});
-              },
-            ),
-            Text(useDockerCompose.toString()),
-            Workon(useDockerCompose),
+            Workon(useDockerCompose)
           ],
         ),
       ),
