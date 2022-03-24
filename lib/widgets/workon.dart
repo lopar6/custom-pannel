@@ -1,9 +1,14 @@
+import 'dart:ffi';
+
+import 'package:custom_panel/data/projects.dart';
+import 'package:custom_panel/models/project.dart';
 import 'package:flutter/material.dart';
 
 class Workon extends StatelessWidget {
   List<int> testList = [0, 1, 2];
+  late bool shouldUseDockerCompose;
 
-  Workon({Key? key}) : super(key: key);
+  Workon(this.shouldUseDockerCompose, {Key? key}) : super(key: key);
 
 //TODO figure out how to center
   @override
@@ -12,20 +17,22 @@ class Workon extends StatelessWidget {
       child: ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(8),
-          children: getProjectListTiles()),
+          children: _getProjectListTiles()),
     );
   }
-}
 
-List<ListTile> getProjectListTiles() {
-  List<ListTile> projectListTiles = [];
-  List<int> intList = [3, 2, 1, 0];
-  for (var i in intList) {
-    projectListTiles.add(ListTile(
-        title: Text(
-      i.toString(),
-      textAlign: TextAlign.center,
-    )));
+  List<ListTile> _getProjectListTiles() {
+    List<ListTile> projectListTiles = [];
+    for (var project in PROJECTS) {
+      projectListTiles.add(ListTile(
+        title: ElevatedButton(
+            onPressed: () => project.open(shouldUseDockerCompose),
+            child: Text(
+              project.label,
+              textAlign: TextAlign.center,
+            )),
+      ));
+    }
+    return projectListTiles;
   }
-  return projectListTiles;
 }

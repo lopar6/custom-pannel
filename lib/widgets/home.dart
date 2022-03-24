@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Vpn vpn = Vpn();
   VpnConnectionStatus vpnConnectionStatus = VpnConnectionStatus.changing;
+  bool useDockerCompose = true;
 
   @override
   void initState() {
@@ -72,7 +73,15 @@ class _HomePageState extends State<HomePage> {
                   : null,
             ),
             Text(vpnConnectionStatus.toString()),
-            Workon(),
+            ElevatedButton(
+              child: Text("Also Start Docker Containers?"),
+              onPressed: () {
+                useDockerCompose = !useDockerCompose;
+                setState(() {});
+              },
+            ),
+            Text(useDockerCompose.toString()),
+            Workon(useDockerCompose),
           ],
         ),
       ),

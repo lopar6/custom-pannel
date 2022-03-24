@@ -1,4 +1,4 @@
-typedef OpenFunction = void Function(bool dcUp);
+typedef OpenFunction = Function(bool dcUp);
 
 class Project {
   final String label;
