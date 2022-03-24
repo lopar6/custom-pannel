@@ -1,5 +1,5 @@
 import 'dart:io';
-import './models/project.dart';
+import '../models/project.dart';
 
 List<Project> PROJECTS = [
   Project(
