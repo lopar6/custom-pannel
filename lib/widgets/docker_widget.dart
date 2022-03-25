@@ -1,11 +1,9 @@
-import 'dart:ui';
-
 import 'package:custom_panel/models/docker_container.dart';
 import 'package:custom_panel/services/docker_service.dart';
 import 'package:flutter/material.dart';
 
 class DockerWidget extends StatefulWidget {
-  DockerWidget({Key? key}) : super(key: key);
+  const DockerWidget({Key? key}) : super(key: key);
 
   @override
   State<DockerWidget> createState() => _DockerWidgetState();
@@ -49,15 +47,6 @@ class _DockerWidgetState extends State<DockerWidget> {
             ),
             ListView(
                 shrinkWrap: true,
-                // children: runningContainers == []
-                //     ? [
-                //         const Text(
-                //           "No Docker Containers Running",
-                //           textAlign: TextAlign.center,
-                //         )
-                //       ]
-                //     : runningContainers),
-
                 children: dockerLoadingState == DockerState.checking
                     ? [
                         const Text(

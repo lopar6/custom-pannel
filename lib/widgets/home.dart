@@ -1,7 +1,5 @@
-import 'package:custom_panel/services/vpn.dart';
 import 'package:custom_panel/widgets/docker_widget.dart';
 import 'package:custom_panel/widgets/vpn_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'workon.dart';
@@ -47,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 Workon(useDockerCompose),
               ],
             ),
-            DockerWidget(),
+            const DockerWidget(),
           ],
         ),
       ),

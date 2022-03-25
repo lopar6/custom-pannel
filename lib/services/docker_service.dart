@@ -1,9 +1,6 @@
 import 'dart:io';
 
-import 'package:custom_panel/env.dart';
 import 'package:custom_panel/models/docker_container.dart';
-import 'package:custom_panel/models/project.dart';
-import 'package:flutter/material.dart';
 
 enum DockerState { checking, upToDate }
 
