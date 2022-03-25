@@ -44,15 +44,22 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Custom Panel"),
       ),
-      body: Center(
-        child: ListView(
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        width: 800,
+        height: 800,
+        child: GridView.count(
+          crossAxisCount: 3,
           shrinkWrap: true,
           children: [
             Row(
               children: [
-                Text(vpnConnectionStatus.toString()),
                 Column(
                   children: [
+                    Text(
+                      vpnConnectionStatus.name.toString(),
+                    ),
+                    const SizedBox(height: 15),
                     ElevatedButton(
                       child: const Text("Connect"),
                       onPressed: vpnConnectionStatus ==
@@ -70,6 +77,7 @@ class _HomePageState extends State<HomePage> {
                             }
                           : null,
                     ),
+                    const SizedBox(height: 15),
                     ElevatedButton(
                       child: const Text("Disconnect"),
                       onPressed:
@@ -91,8 +99,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Row(
+            Column(
               children: [
+                const Text("Select A Project:", textScaleFactor: 2),
+                const SizedBox(height: 50),
                 const Text("Also Start Docker Containers?"),
                 Checkbox(
                   value: useDockerCompose,
@@ -101,9 +111,10 @@ class _HomePageState extends State<HomePage> {
                     setState(() {});
                   },
                 ),
+                const SizedBox(height: 10),
+                Workon(useDockerCompose),
               ],
             ),
-            Workon(useDockerCompose),
             DockerWidget(),
           ],
         ),

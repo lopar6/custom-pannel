@@ -32,45 +32,49 @@ class _DockerWidgetState extends State<DockerWidget> {
 
   @override
   build(BuildContext context) {
-    return Row(
-      children: [
-        ElevatedButton(
-          child: const Text("reload containers"),
-          onPressed: () async {
-            dockerLoadingState = DockerState.checking;
-            setState(() {});
-            await _setDockerContainerWidgets();
-            setState(() {});
-          },
-        ),
-        ListView(
-            shrinkWrap: true,
-            children: runningContainers == []
-                ? [
-                    const Text(
-                      "No Docker Containers Running",
-                      textAlign: TextAlign.center,
-                    )
-                  ]
-                : runningContainers),
+    return SizedBox(
+        width: 500,
+        height: 500,
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: const Text("reload containers"),
+              onPressed: () async {
+                dockerLoadingState = DockerState.checking;
+                setState(() {});
+                await _setDockerContainerWidgets();
+                dockerLoadingState = DockerState.upToDate;
+                setState(() {});
+              },
+            ),
+            ListView(
+                shrinkWrap: true,
+                // children: runningContainers == []
+                //     ? [
+                //         const Text(
+                //           "No Docker Containers Running",
+                //           textAlign: TextAlign.center,
+                //         )
+                //       ]
+                //     : runningContainers),
 
-        // children: dockerLoadingState == DockerState.checking
-        //     ? [
-        //         const Text(
-        //           "Loading...",
-        //           textAlign: TextAlign.center,
-        //         )
-        //       ]
-        //     : runningContainers == []
-        //         ? [
-        //             const Text(
-        //               "No Docker Containers Running",
-        //               textAlign: TextAlign.center,
-        //             )
-        //           ]
-        //         : runningContainers),
-      ],
-    );
+                children: dockerLoadingState == DockerState.checking
+                    ? [
+                        const Text(
+                          "Loading...",
+                          textAlign: TextAlign.center,
+                        )
+                      ]
+                    : runningContainers == []
+                        ? [
+                            const Text(
+                              "No Docker Containers Running",
+                              textAlign: TextAlign.center,
+                            )
+                          ]
+                        : runningContainers),
+          ],
+        ));
   }
 
   Future<void> _setDockerContainerWidgets() async {
