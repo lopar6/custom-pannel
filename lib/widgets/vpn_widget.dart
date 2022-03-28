@@ -39,9 +39,26 @@ class _VpnWidgetState extends State<VpnWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text("VPN Connection:", textScaleFactor: 2),
-        Text(
-          vpnConnectionStatus.name.toString(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.vpn_lock),
+            SizedBox(width: 20),
+            Text("VPN Connection:", textScaleFactor: 2),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(vpnConnectionStatus == VpnConnectionStatus.connected
+                ? Icons.check
+                : vpnConnectionStatus == VpnConnectionStatus.changing
+                    ? Icons.local_laundry_service
+                    : Icons.lock_rounded),
+            Text(
+              vpnConnectionStatus.name.toString(),
+            ),
+          ],
         ),
         const SizedBox(height: 15),
         ElevatedButton(

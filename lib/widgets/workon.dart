@@ -16,7 +16,14 @@ class _Workon extends State<Workon> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        const Text("Open A Project:", textScaleFactor: 2),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.file_open),
+            SizedBox(width: 20),
+            Text("Open A Project:", textScaleFactor: 2),
+          ],
+        ),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

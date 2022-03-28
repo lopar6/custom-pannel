@@ -32,12 +32,19 @@ class _DockerWidgetState extends State<DockerWidget> {
   build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10.0),
-          child: Text(
-            "Running Docker Containers:",
-            textScaleFactor: 2,
-            textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.directions_boat),
+              SizedBox(width: 20),
+              Text(
+                "Running Docker Containers:",
+                textScaleFactor: 2,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ),
         ElevatedButton(
