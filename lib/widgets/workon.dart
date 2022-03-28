@@ -8,23 +8,23 @@ class Workon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: _getProjectListTiles(), mainAxisSize: MainAxisSize.min);
+      mainAxisSize: MainAxisSize.max,
+      children: _getProjectListTiles(),
+    );
   }
 
   List<Widget> _getProjectListTiles() {
     List<Widget> projectListTiles = [];
     for (var project in PROJECTS) {
-      projectListTiles.add(Column(children: [
-        ElevatedButton(
+      projectListTiles.add(Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: ElevatedButton(
             onPressed: () => project.open(shouldUseDockerCompose),
             child: Text(
               project.label,
               textAlign: TextAlign.center,
             )),
-        const SizedBox(
-          height: 10,
-        )
-      ]));
+      ));
     }
     return projectListTiles;
   }
