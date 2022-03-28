@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool useDockerCompose = true;
+  static const double mainBoxWidth = 1000;
+  static const double mainBoxHeight = 1000;
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +24,62 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        width: 800,
-        height: 800,
+        width: mainBoxWidth,
+        height: mainBoxWidth,
         child: GridView.count(
           crossAxisCount: 3,
           shrinkWrap: true,
           children: [
-            const VpnWidget(),
-            Column(
-              children: [
-                const Text("Select A Project:", textScaleFactor: 2),
-                const SizedBox(height: 50),
-                const Text("Also Start Docker Containers?"),
-                Checkbox(
-                  value: useDockerCompose,
-                  onChanged: (useDC) {
-                    useDockerCompose = !useDockerCompose;
-                    setState(() {});
-                  },
-                ),
-                const SizedBox(height: 10),
-                Workon(useDockerCompose),
-              ],
+            _homeDecorationBox(const VpnWidget()),
+            _homeDecorationBox(
+              Column(
+                children: [
+                  const Text("Open A Project:", textScaleFactor: 2),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Also Start Docker Containers?",
+                        textScaleFactor: .8,
+                      ),
+                      Checkbox(
+                        value: useDockerCompose,
+                        onChanged: (useDC) {
+                          useDockerCompose = !useDockerCompose;
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Workon(useDockerCompose),
+                ],
+              ),
             ),
-            const DockerWidget(),
+            _homeDecorationBox(const DockerWidget()),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _homeDecorationBox(Widget child) {
+    return DecoratedBox(
+      decoration:
+          BoxDecoration(border: Border.all(color: Colors.black45, width: 5)),
+      child: SizedBox(
+          width: mainBoxWidth,
+          height: mainBoxHeight,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                child,
+              ],
+            ),
+          )),
     );
   }
 }

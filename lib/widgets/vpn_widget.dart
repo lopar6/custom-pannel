@@ -37,42 +37,39 @@ class _VpnWidgetState extends State<VpnWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Column(
-          children: [
-            Text(
-              vpnConnectionStatus.name.toString(),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              child: const Text("Connect"),
-              onPressed: vpnConnectionStatus == VpnConnectionStatus.disconnected
-                  ? () async {
-                      vpnConnectionStatus = VpnConnectionStatus.changing;
-                      setState(() {});
-                      await vpn.connect();
-                      await vpn.isConnected(VpnCheckStrategy.waitForConnect);
-                      vpnConnectionStatus = VpnConnectionStatus.connected;
-                      setState(() {});
-                    }
-                  : null,
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              child: const Text("Disconnect"),
-              onPressed: vpnConnectionStatus == VpnConnectionStatus.connected
-                  ? () async {
-                      vpnConnectionStatus = VpnConnectionStatus.changing;
-                      setState(() {});
-                      await vpn.disconnect();
-                      await vpn.isConnected(VpnCheckStrategy.waitForDisconnect);
-                      vpnConnectionStatus = VpnConnectionStatus.disconnected;
-                      setState(() {});
-                    }
-                  : null,
-            ),
-          ],
+        const Text("VPN Connection:", textScaleFactor: 2),
+        Text(
+          vpnConnectionStatus.name.toString(),
+        ),
+        const SizedBox(height: 15),
+        ElevatedButton(
+          child: const Text("Connect"),
+          onPressed: vpnConnectionStatus == VpnConnectionStatus.disconnected
+              ? () async {
+                  vpnConnectionStatus = VpnConnectionStatus.changing;
+                  setState(() {});
+                  await vpn.connect();
+                  await vpn.isConnected(VpnCheckStrategy.waitForConnect);
+                  vpnConnectionStatus = VpnConnectionStatus.connected;
+                  setState(() {});
+                }
+              : null,
+        ),
+        const SizedBox(height: 15),
+        ElevatedButton(
+          child: const Text("Disconnect"),
+          onPressed: vpnConnectionStatus == VpnConnectionStatus.connected
+              ? () async {
+                  vpnConnectionStatus = VpnConnectionStatus.changing;
+                  setState(() {});
+                  await vpn.disconnect();
+                  await vpn.isConnected(VpnCheckStrategy.waitForDisconnect);
+                  vpnConnectionStatus = VpnConnectionStatus.disconnected;
+                  setState(() {});
+                }
+              : null,
         ),
       ],
     );
