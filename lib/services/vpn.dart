@@ -1,9 +1,7 @@
 import 'dart:io';
 
+import 'package:custom_panel/enums.dart';
 import 'package:custom_panel/env.dart';
-
-enum VpnCheckStrategy { immediate, waitForConnect, waitForDisconnect }
-enum VpnConnectionStatus { connected, disconnected, changing }
 
 class Vpn {
   Future<bool> isConnected(

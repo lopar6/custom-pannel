@@ -2,6 +2,8 @@ import 'package:custom_panel/models/docker_container.dart';
 import 'package:custom_panel/services/docker_service.dart';
 import 'package:flutter/material.dart';
 
+import '../enums.dart';
+
 class DockerWidget extends StatefulWidget {
   const DockerWidget({Key? key}) : super(key: key);
 

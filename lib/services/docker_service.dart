@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:custom_panel/models/docker_container.dart';
 
-enum DockerState { checking, upToDate }
-
 class DockerService {
   Future<List<DockerContainer>> getRunningDockerContainers() async {
     ProcessResult result;

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../enums.dart';
 import '../services/vpn.dart';
 
 class VpnWidget extends StatefulWidget {
